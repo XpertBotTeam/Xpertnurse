@@ -95,4 +95,25 @@ class PatientController extends Controller
             ]); 
         }
     }
+
+
+    public function vitals($id,Request $request)
+    {
+        $patient = Patient::with('vitals')->find($id);
+        if(!is_null($patient))
+        {
+            $vitals = $patient->vitals;
+            return response()->json([
+                'status'=>true,
+                'data'=>$vitals,
+                'message'=>"Patient's vitals"
+            ]);
+        }else{
+            return response()->json([
+                'status'=>false,
+                'data'=>null,
+                'message'=>"Patient not found"
+            ]); 
+        }
+    }
 }
